@@ -1,0 +1,5 @@
+all:
+  children:
+    nodes:
+      hosts:
+          192.168.0.40: # node-01 - ClickHouse

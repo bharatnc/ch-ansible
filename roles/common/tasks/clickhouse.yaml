@@ -1,0 +1,27 @@
+- name: add repo key
+  apt_key:
+    keyserver: "keyserver.ubuntu.com"
+    id: "E0C56BD4"
+  become: true
+
+- name: add repository
+  apt_repository:
+    repo: "deb http://repo.yandex.ru/clickhouse/deb/stable/ main/"
+    state: present
+  become: true
+
+- name: install Clickhouse server
+  apt:
+    name: "{{ item }}"
+    state: present
+    force: yes
+  with_items: "clickhouse-server"
+  become: true
+
+- name: install Clickhouse client
+  apt:
+    name: "{{ item }}"
+    state: present
+    force: yes
+  with_items: "clickhouse-client"
+  become: true
