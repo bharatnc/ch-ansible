@@ -1,14 +1,14 @@
 ### Ansible for ClickHouse 
 
-Ansible role for provisioning Clickhouse server.
+Ansible role for provisioning ClickHouse server.
 
 ### Local dev and testing
-This section is mainly for setting up a convenient local dev environment for testing and development if you want to
-iterate on the Clickhouse ansible role.
+
+Provides a setup to locally test the ClickHouse server ansible roles.
 
 #### Requirements
-* Vagrant used for testing all changes. 
-* Virtualbox used as Vagrant provider.
+* Vagrant
+* Virtualbox
 * **Note:** This setup is verified to work with:
 ```bash
 # dev machine 
@@ -26,18 +26,19 @@ Vagrant 2.2.6
 ➜ vboxmanage --version
 5.2.34_Ubuntur133883
 ```
-#### Setup
-* Spin up vagrant box
+#### Setup 
+* Spin up vagrant box to provision
 
 ```bash
-# Vagrantfile located in /dev/clickhouse 
-cd dev
+# Vagrantfile located in /dev/clickhouse-single-node
+cd dev/clickhouse-single-node
 vagrant up 
 cd ..
 ```
-* Provision using Makefile
+* Run Make command to provision. The Makefile uses ansible inventory information found under `hack` folder.
 ```bash
-# to provision ch 
-# default password: vagrant
-make ch
+# to provision ClickHouse (single node)
+# note might need to install sshpass [on ubuntu]: sudo apt install sshpass
+#  SSH password & BECOME password is vagrant
+make dev-ch-single-node
 ```

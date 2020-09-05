@@ -1,0 +1,33 @@
+# For installation details refer: https://clickhouse.tech/docs/en/getting-started/install/
+- name: add repo key for ClickHouse
+  apt_key:
+    keyserver: "hkp://keyserver.ubuntu.com:80"
+    id: "E0C56BD4"
+  become: true
+
+- name: add repo for ClickHouse
+  apt_repository:
+    repo: "deb https://repo.clickhouse.tech/deb/stable/ main/"
+    filename: "/etc/apt/sources.list.d/clickhouse.list"
+    state: present
+  become: true
+
+- name: install Clickhouse server
+  apt:
+    name: "clickhouse-server"
+    state: present
+    force: yes
+  become: true
+
+- name: install Clickhouse client
+  apt:
+    name: "clickhouse-client"
+    state: present
+    force: yes
+  become: true
+
+- name: ensure that ClickHouse is running
+  systemd:
+    state: started
+    name: clickhouse-server
+  become: true

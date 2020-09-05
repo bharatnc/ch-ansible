@@ -1,5 +1,5 @@
-ch:
-	 @export ANSIBLE_CONFIG=inventories/ansible.cfg ; ansible-playbook -i inventories/inventory_nodes.yaml clickhouse-playbook.yaml -k
+dev-ch-single-node:
+	 @export ANSIBLE_CONFIG=hack/inventories/ansible.cfg ; ansible-playbook -i hack/inventories/inventory_nodes.yaml clickhouse-single-node-playbook.yaml -kK
 
 
 
