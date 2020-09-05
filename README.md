@@ -12,33 +12,32 @@ Provides a setup to locally test the ClickHouse server ansible roles.
 * **Note:** This setup is verified to work with:
 ```bash
 # dev machine 
-➜  lsb_release -a
+➜  clickhouse-ansible git:(master) ✗ lsb_release -a
+No LSB modules are available.
 Distributor ID:	Ubuntu
-Description:	Ubuntu 18.04.4 LTS
-Release:	18.04
-Codename:	bionic
+Description:	Ubuntu 20.04 LTS
+Release:	20.04
+Codename:	focal
 
 # vagrant
-➜ vagrant --version
-Vagrant 2.2.6
+➜  clickhouse-ansible git:(master) ✗ vagrant --version
+Vagrant 2.2.9
 
 # virtualbox
-➜ vboxmanage --version
-5.2.34_Ubuntur133883
+➜  clickhouse-ansible git:(master) ✗ vboxmanage --version
+6.1.10_Ubuntur138449
 ```
 #### Setup 
 * Spin up vagrant box to provision
 
 ```bash
-# Vagrantfile located in /dev/clickhouse-single-node
-cd dev/clickhouse-single-node
-vagrant up 
-cd ..
+# Vagrantfile located in /dev/vagrant/clickhouse-single-node
+➜  clickhouse-ansible git:(master) ✗ make vagrant-up-ch-single-node                            
 ```
 * Run Make command to provision. The Makefile uses ansible inventory information found under `hack` folder.
 ```bash
 # to provision ClickHouse (single node)
 # note might need to install sshpass [on ubuntu]: sudo apt install sshpass
 #  SSH password & BECOME password is vagrant
-make dev-ch-single-node
+➜  clickhouse-ansible git:(master) ✗ make provision-ch-single-node  
 ```
