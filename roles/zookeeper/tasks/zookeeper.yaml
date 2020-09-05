@@ -1,0 +1,67 @@
+# install zookeeper
+
+- name: add 'zk' group
+  group:
+    name: zk
+    state: present
+  become: true
+
+- name: add 'zk' user
+  user:
+    name: zk
+    comment: zookeeper user
+    group: zk
+    shell: /bin/bash
+    state: present
+  become: true
+
+
+- name: add zk to sudoers group
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%zk'
+    line: '%zk ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+  become: true
+
+- name: create zookeeper data directory
+  file:
+    path: /data/zookeeper
+    state: directory
+    owner: zk
+    group: zk
+  become: true
+
+### TODO:
+### - disable ssh for zk user
+### - disable root login for zk user
+### - restart sshd once doing the above
+
+- name: download zookeeper
+  get_url:
+    url: http://apache.osuosl.org/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz
+    dest: /opt
+  become: true
+
+- name: unpack zookeeper
+  unarchive:
+    src: /opt/zookeeper-3.4.14.tar.gz
+    dest: /opt
+    remote_src: true
+    group: zk
+    owner: zk
+    extra_opts:
+      - --transform
+      - 's/zookeeper-3.4.14/zookeeper/'
+  become: true
+
+- name: configure zookeeper
+  template: src=zookeeper.cfg dest=/opt/zookeeper/conf/zoo.cfg
+  become: true
+
+- name: setup systemd target for zookeeper
+  template: src=zookeeper.service dest=/etc/systemd/system
+  become: true
+  notify:
+    - restart zookeeper
