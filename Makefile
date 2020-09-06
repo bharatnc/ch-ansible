@@ -1,11 +1,39 @@
-vagrant-up-ch-single-node:
-	cd dev/vagrant/clickhouse-single-node && vagrant up && cd -
+ANSIBLE_INVENTORY = "hack/inventory/inventory_dev"
+ANSIBLE_CFG = "hack/inventory/ansible.cfg"
+VAGRANT_CH = "dev/vagrant/clickhouse-node"
+VAGRANT_ZK = "dev/vagrant/zookeeper-node"
 
-provision-ch-single-node:
-	 @export ANSIBLE_CONFIG=hack/inventories/vagrant-ch-single-node/ansible.cfg ; ansible-playbook -i hack/inventories/vagrant-ch-single-node/inventory_nodes.yaml clickhouse-single-node-playbook.yaml -kK
+IP_CH_NODE = "192.168.0.50"
+IP_ZK_NODE = "192.168.0.60"
 
-vagrant-up-zk-single-node:
-	cd dev/vagrant/zookeeper-single-node && vagrant up && cd -
+.PHONY: show-inventory
+show-inventory:
+	# Current inventory
+	#	  [clickhouse-node]
+	#	  192.168.1.50
+	#	  [zookeeper-node]
+	#	  192.168.1.60
 
-provision-zk-single-node:
-	 @export ANSIBLE_CONFIG=hack/inventories/vagrant-zk-single-node/ansible.cfg ; ansible-playbook -i hack/inventories/vagrant-zk-single-node/inventory_nodes.yaml zookeeper-single-node-playbook.yaml -kK
+.PHONY: vagrant-up-ch-node
+vagrant-up-ch-node:
+	cd $(VAGRANT_CH) && IP_CH_NODE=$(IP_CH_NODE) vagrant up && cd -
+
+.PHONY: vagrant-down-ch-node
+vagrant-down-ch-node:
+	cd $(VAGRANT_CH) && vagrant destroy -f && cd -
+
+.PHONY: provision-ch-node
+provision-ch-node:
+	 @export ANSIBLE_CONFIG=$(ANSIBLE_CFG) ; ansible-playbook -i $(ANSIBLE_INVENTORY) -l clickhouse-node clickhouse-single-node-playbook.yaml -kK
+
+.PHONY: vagrant-up-zk-node
+vagrant-up-zk-node:
+	cd $(VAGRANT_ZK) && IP_ZK_NODE=$(IP_ZK_NODE)  vagrant up && cd -
+
+.PHONY: vagrant-down-zk-node
+vagrant-down-zk-node:
+	cd $(VAGRANT_ZK) && vagrant destroy -f && cd -
+
+.PHONY: provision-zk-node
+provision-zk-node:
+	 @export ANSIBLE_CONFIG=$(ANSIBLE_CFG) ; ansible-playbook -i $(ANSIBLE_INVENTORY) -l zookeeper-node zookeeper-single-node-playbook.yaml -kK

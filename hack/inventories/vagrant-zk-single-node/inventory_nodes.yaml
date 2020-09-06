@@ -1,6 +1,0 @@
-all:
-  children:
-    nodes:
-      hosts:
-         # TODO: make node IP address configurable
-          192.168.0.55: # single node Zookeeper
