@@ -36,8 +36,17 @@ Vagrant 2.2.9
 ```
 * Run Make command to provision. The Makefile uses ansible inventory information found under `hack` folder.
 ```bash
-# to provision ClickHouse (single node)
 # note might need to install sshpass [on ubuntu]: sudo apt install sshpass
-#  SSH password & BECOME password is vagrant
-➜  clickhouse-ansible git:(master) ✗ make provision-ch-single-node  
+# SSH password & BECOME password: vagrant
+# to provision ClickHouse (single node)
+➜  clickhouse-ansible git:(master) ✗ make vagrant-up-ch-node 
+➜  clickhouse-ansible git:(master) ✗ make provision-ch-node  
+# to destroy ClickHouse (single node)
+➜  clickhouse-ansible git:(master) ✗ make vagrant-down-ch-node 
+
+# to provision Zookeeper (single node)
+➜  clickhouse-ansible git:(master) ✗ make vagrant-up-zk-node 
+➜  clickhouse-ansible git:(master) ✗ make provision-zk-node  
+# to destroy Zookeeper (single node)
+➜  clickhouse-ansible git:(master) ✗ make vagrant-down-zk-node 
 ```
