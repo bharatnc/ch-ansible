@@ -31,8 +31,8 @@ Vagrant 2.2.9
 * Spin up vagrant box to provision
 
 ```bash
-# Vagrantfile located in /dev/vagrant/clickhouse-single-node
-➜  clickhouse-ansible git:(master) ✗ make vagrant-up-ch-single-node                            
+# Vagrantfile located in /dev/vagrant/clickhouse-node
+➜  clickhouse-ansible git:(master) ✗ make vagrant-up-ch-node                            
 ```
 * Run Make command to provision. The Makefile uses ansible inventory information found under `hack` folder.
 ```bash

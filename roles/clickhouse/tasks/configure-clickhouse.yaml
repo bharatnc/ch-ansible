@@ -1,0 +1,11 @@
+- name: copy config.xml file
+  template: src=config.xml.j2 dest=/etc/clickhouse-server/config.xml
+  become: true
+
+- name: copy custom configurations under config.d
+  template: src="{{ item }}" dest="/etc/clickhouse-server/config.d/{{ item | basename | regex_replace('\.j2$','')}}"
+  with_fileglob:
+    - ../templates/config.d/*.j2
+  become: true
+  notify:
+    restart clickhouse-server

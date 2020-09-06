@@ -1,5 +1,11 @@
 [clickhouse-node]
 192.168.0.50
 
+[clickhouse-cluster]
+192.168.0.51
+192.168.0.52
+192.168.0.53
+
+
 [zookeeper-node]
 192.168.0.60

@@ -1,5 +1,3 @@
 - name: restart clickhouse-server
-  service:
-    name: "clickhouse-server"
-    state: restarted
+  service: name=clickhouse-server state=restarted enabled=yes
   become: true

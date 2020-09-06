@@ -1,0 +1,24 @@
+<yandex>
+    <remote_servers>
+        <cluster_3shards_1replicas>
+            <shard>
+                <replica>
+                    <host>"{{ groups['clickhouse-cluster'][0] }}"</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <shard>
+                <replica>
+                    <host>"{{ groups['clickhouse-cluster'][1] }}"</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <shard>
+                <replica>
+                    <host>"{{ groups['clickhouse-cluster'][2] }}"</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </cluster_3shards_1replicas>
+    </remote_servers>
+</yandex>
