@@ -1,0 +1,18 @@
+IMAGE_NAME="bento/ubuntu-20.04"
+NODES = ENV['N_ZK_NODES'].to_i
+
+Vagrant.configure("2") do |config|
+  config.ssh.insert_key = false
+  config.vm.provider :virtualbox do |vb|
+    vb.memory = 512
+    vb.cpus = 1
+  end
+    (1..NODES).each do |i|
+      config.vm.define "zk-#{i}" do |zk|
+        config.vm.box = IMAGE_NAME
+        # TODO: make this IP configurable - right now range matches block [zookeeper-nodes] in
+        zk.vm.network "public_network", ip: "192.168.0.#{ i+60 }"
+        zk.vm.hostname = "zk-node-#{i}"
+      end
+    end
+end

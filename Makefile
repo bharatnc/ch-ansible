@@ -2,18 +2,28 @@ ANSIBLE_INVENTORY = "hack/inventory/inventory_dev"
 ANSIBLE_CFG = "hack/inventory/ansible.cfg"
 VAGRANT_CH = "dev/vagrant/clickhouse-node"
 VAGRANT_CH_CLUSTER = "dev/vagrant/clickhouse-cluster"
-VAGRANT_ZK = "dev/vagrant/zookeeper-node"
+# provision N standalone nodes with no replication
+VAGRANT_ZK = "dev/vagrant/zookeeper-nodes"
+N_ZK_NODES=3
 
 IP_CH_NODE = "192.168.0.50"
-IP_ZK_NODE = "192.168.0.60"
 
 .PHONY: show-inventory
 show-inventory:
-	# Current inventory
-	#	  [clickhouse-node]
-	#	  192.168.1.50
-	#	  [zookeeper-node]
-	#	  192.168.1.60
+	#[clickhouse-node]
+	#192.168.0.50
+	#
+	#[clickhouse-cluster]
+	#192.168.0.51
+	#192.168.0.52
+	#192.168.0.53
+	#
+	## standalone nodes with no replication
+	#[zookeeper-nodes]
+	#192.168.0.60
+	#192.168.0.61
+	#192.168.0.62
+
 
 .PHONY: vagrant-up-ch-node
 vagrant-up-ch-node:
@@ -40,14 +50,14 @@ provision-ch-cluster:
 	 @export ANSIBLE_CONFIG=$(ANSIBLE_CFG) ; ansible-playbook -i $(ANSIBLE_INVENTORY) -l clickhouse-cluster clickhouse-playbook.yaml -kK
 
 
-.PHONY: vagrant-up-zk-node
-vagrant-up-zk-node:
-	cd $(VAGRANT_ZK) && IP_ZK_NODE=$(IP_ZK_NODE)  vagrant up && cd -
+.PHONY: vagrant-up-zk-nodes
+vagrant-up-zk-nodes:
+	cd $(VAGRANT_ZK) && N_ZK_NODES=$(N_ZK_NODES) vagrant up && cd -
 
 .PHONY: vagrant-down-zk-node
-vagrant-down-zk-node:
+vagrant-down-zk-nodes:
 	cd $(VAGRANT_ZK) && vagrant destroy -f && cd -
 
 .PHONY: provision-zk-node
-provision-zk-node:
-	 @export ANSIBLE_CONFIG=$(ANSIBLE_CFG) ; ansible-playbook -i $(ANSIBLE_INVENTORY) -l zookeeper-node zookeeper-single-node-playbook.yaml -kK
+provision-zk-nodes:
+	 @export ANSIBLE_CONFIG=$(ANSIBLE_CFG) ; ansible-playbook -i $(ANSIBLE_INVENTORY) -l zookeeper-nodes zookeeper-playbook.yaml -kK
