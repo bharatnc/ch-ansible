@@ -2,7 +2,7 @@
 
 - name: install java 8
   apt:
-    name: "openjdk-8-jdk"
+    name: "{{ java_version }}"
     state: present
     force: yes
     update_cache: yes

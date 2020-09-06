@@ -7,7 +7,7 @@
 
 - name: add repo for ClickHouse
   apt_repository:
-    repo: "deb https://repo.clickhouse.tech/deb/stable/ main/"
+    repo: "{{ clickhouse_deb_repo }}"
     filename: "/etc/apt/sources.list.d/clickhouse.list"
     state: present
   become: true

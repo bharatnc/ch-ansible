@@ -1,0 +1,1 @@
+clickhouse_deb_repo: "deb https://repo.clickhouse.tech/deb/stable/ main/"
