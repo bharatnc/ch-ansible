@@ -4,8 +4,8 @@ VAGRANT_CH = "dev/vagrant/clickhouse-node"
 VAGRANT_CH_CLUSTER = "dev/vagrant/clickhouse-cluster"
 # provision N standalone nodes with no replication
 VAGRANT_ZK = "dev/vagrant/zookeeper-nodes"
-N_ZK_NODES=3
-N_CH_NODES=3
+N_ZK_NODES?=3
+N_CH_NODES?=3
 
 
 IP_CH_NODE = "192.168.0.50"
