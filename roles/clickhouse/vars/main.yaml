@@ -1,1 +1,9 @@
 clickhouse_deb_repo: "deb https://repo.clickhouse.tech/deb/stable/ main/"
+
+
+# ClickHouse config includes
+enable_query_thread_log: false
+enable_query_log: true
+enable_trace_log: true
+enable_zk_config: true
+enable_cluster: true

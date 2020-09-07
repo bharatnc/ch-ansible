@@ -1,0 +1,7 @@
+{% if enable_query_log  == true  %}
+ <yandex>
+     <query_log>
+        <table>query_log</table>
+    </query_log>
+ </yandex>
+{% endif %}
