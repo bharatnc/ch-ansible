@@ -2,6 +2,34 @@
 
 Ansible role for provisioning ClickHouse server.
 
+### Known Caveats
+
+This is mainly to address the known state of the repo that:
+
+* it contains minimal templating which will be worked upon.
+* it lacks features like provisioning ClickHouse user, dictionary, etc.
+* zookeeper roles lack the creation of replicated clusters.
+
+I use this repo to mainly provision my own ClickHouse clusters. While the features and tasks will be worked based upon my own requirements, please feel free to send PRs if needed and thanks in advance for that :)!
+
+#### Roles
+This contains roles to provision:
+* Single ClickHouse Node
+* ClickHouse Cluster (upto N nodes)
+* Provision Zookeeper nodes (standalone upto N nodes)
+
+#### ClickHouse config
+* add, remove or config files found under `/roles/clickhouse/templates`
+* add templating variables to `/roles/clickhouse/vars`
+
+#### Zookeeper config
+* add, remove or config files found under `/roles/zookeeper/templates`
+* add templating variables to `/roles/zookeeper/vars`
+
+#### Sample inventory
+* Refer to `hack/inventory`
+* Mainly used for local testing (refer to next section)
+
 ### Local dev and testing
 
 Provides a setup to locally test the ClickHouse server ansible roles.
