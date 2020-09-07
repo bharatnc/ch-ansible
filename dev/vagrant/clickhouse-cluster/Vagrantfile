@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
     vb.memory = 2048
     vb.cpus = 2
   end
-    (0..NODES-1).each do |i|
+    (1..NODES).each do |i|
       config.vm.define "shard-#{i}" do |clickhouse|
         config.vm.box = IMAGE_NAME
         # TODO: make IPs configurable - right now range matches block [clickhouse-cluster] in
