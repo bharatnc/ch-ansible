@@ -1,16 +1,16 @@
 <yandex>
     <zookeeper>
           <node index="1">
-            <host>"{{ groups['clickhouse-cluster'][0] }}"</host>
+            <host>{{ groups['zookeeper-nodes'][0] }}</host>
             <port>2181</port>
           </node>
 
           <node index="2">
-            <host>"{{ groups['clickhouse-cluster'][1] }}"</host>
+            <host>{{ groups['zookeeper-nodes'][1] }}</host>
             <port>2181</port>
           </node>
           <node index="3">
-            <host>"{{ groups['clickhouse-cluster'][2] }}"</host>
+            <host>{{ groups['zookeeper-nodes'][2] }}</host>
             <port>2181</port>
           </node>
     </zookeeper>

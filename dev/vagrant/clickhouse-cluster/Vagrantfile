@@ -1,12 +1,13 @@
 IMAGE_NAME="bento/ubuntu-20.04"
-NODES = 3
+NODES = NODES=ENV["N_CH_NODES"].to_i
+
 Vagrant.configure("2") do |config|
   config.ssh.insert_key = false
   config.vm.provider :virtualbox do |vb|
     vb.memory = 2048
     vb.cpus = 2
   end
-    (1..NODES).each do |i|
+    (0..NODES-1).each do |i|
       config.vm.define "shard-#{i}" do |clickhouse|
         config.vm.box = IMAGE_NAME
         # TODO: make IPs configurable - right now range matches block [clickhouse-cluster] in
