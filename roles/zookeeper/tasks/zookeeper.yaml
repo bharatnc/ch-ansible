@@ -40,24 +40,24 @@
 
 - name: download zookeeper
   get_url:
-    url: http://apache.osuosl.org/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz
+    url: "{{ zk_download_url }}"
     dest: /opt
   become: true
 
 - name: unpack zookeeper
   unarchive:
-    src: /opt/zookeeper-3.4.14.tar.gz
+    src: "/opt/zookeeper-{{ zk_version }}.tar.gz"
     dest: /opt
     remote_src: true
     group: zk
     owner: zk
     extra_opts:
       - --transform
-      - 's/zookeeper-3.4.14/zookeeper/'
+      - 's/zookeeper-{{ zk_version }}/zookeeper/'
   become: true
 
 - name: configure zookeeper
-  template: src=zookeeper.cfg dest=/opt/zookeeper/conf/zoo.cfg
+  template: src=zookeeper.cfg dest="{{ zk_config_path }}"
   become: true
 
 - name: setup systemd target for zookeeper

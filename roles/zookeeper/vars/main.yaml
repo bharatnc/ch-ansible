@@ -1,1 +1,4 @@
 java_version: "openjdk-8-jdk"
+zk_download_url: "http://archive.apache.org/dist/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz"
+zk_version: "3.4.14"
+zk_config_path: "/opt/zookeeper/conf/zoo.cfg"
